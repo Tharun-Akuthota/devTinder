@@ -3,7 +3,7 @@ const validator = require("validator");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
-// Created a new schema for the user
+// Created a new schema for the user with all the fields
 const userSchema = new mongoose.Schema(
   {
     firstName: {
