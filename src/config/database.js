@@ -1,12 +1,14 @@
 const mongoose = require("mongoose");
 
 const connectDB = async () => {
-    await mongoose.connect("mongodb+srv://tharunakuthota:C9hoUA3zg8TwPBTi@cluser0.ijruy.mongodb.net/devTinder");
+  await mongoose.connect(
+    "mongodb+srv://tharunakuthota:C9hoUA3zg8TwPBTi@cluser0.ijruy.mongodb.net/devTinder"
+  );
 };
 
 module.exports = {
-    connectDB
-}
+  connectDB,
+};
 
 // connectDB().then(() => {
 //     console.log("Database connected successfully!!!");

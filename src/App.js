@@ -8,7 +8,20 @@ const authRouter = require("./routes/auth");
 const requestRouter = require("./routes/request");
 const userRouter = require("./routes/user");
 const cookieParser = require("cookie-parser");
+const cors = require("cors");
 
+let corsOptions = {
+  origin: ["http://localhost:7777", "http://localhost:5173"], // add alternative origin here origin
+  credentials: true,
+  methods: ["GET", "PUT", "POST", "PATCH", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+}; // this will allow the request from the specified origin and cookies will be sent
+// if the origin is not specified, then the request will be blocked by the browser, and cookies will not be sent
+
+app.use(cors(corsOptions));
+app.options("*", cors(corsOptions));
+
+// app.use(cors());
 app.use(cookieParser());
 // middleware to send JSON to database
 app.use(express.json());

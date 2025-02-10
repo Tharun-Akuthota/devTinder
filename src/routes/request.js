@@ -15,6 +15,13 @@ requestRouter.post(
       const toUserId = req.params.toUserId;
       const status = req.params.status;
 
+      const ALLOWED_STATUS = ["ignored", "interested"];
+      if (!ALLOWED_STATUS.includes(status)) {
+        return res.status(400).json({
+          message: "Invalid status type" + status,
+        });
+      }
+
       // check if the user exists
       const toUser = await User.findById(toUserId);
       if (!toUser) {
@@ -31,13 +38,6 @@ requestRouter.post(
       //     message: "You can't send request to yourself",
       //   });
       // }
-
-      const ALLOWED_STATUS = ["ignored", "interested"];
-      if (!ALLOWED_STATUS.includes(status)) {
-        return res.status(400).json({
-          message: "Invalid status type",
-        });
-      }
 
       // if there is existing connection request
       const existingRequest = await ConnectionRequestModel.findOne({

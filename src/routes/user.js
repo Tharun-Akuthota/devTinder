@@ -39,8 +39,6 @@ userRouter.get("/user/connections", userAuth, async (req, res) => {
       .populate("fromUserId", USER_SAFE_DATA)
       .populate("toUserId", USER_SAFE_DATA);
 
-    console.log(connectionRequests);
-
     const data = connectionRequests.map((row) => {
       if (row.fromUserId._id.toString() === loggedInUser._id.toString()) {
         return row.toUserId;
@@ -92,7 +90,7 @@ userRouter.get("/feed", userAuth, async (req, res) => {
 
     // skip and limit are used for pageination, here we skip the first (page-1)*limit records and fetch the next limit records
 
-    res.send(users);
+    res.json({ data: users });
   } catch (err) {
     res.status(400).send("ERROR:" + err.message);
   }
