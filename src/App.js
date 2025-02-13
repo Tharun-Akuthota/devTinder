@@ -1,6 +1,5 @@
 const express = require("express");
 const app = express();
-const PORT = 7777;
 const User = require("./models/User");
 const { connectDB } = require("./config/database");
 const profileRouter = require("./routes/profile");
@@ -9,6 +8,8 @@ const requestRouter = require("./routes/request");
 const userRouter = require("./routes/user");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
+
+require("dotenv").config();
 
 let corsOptions = {
   origin: ["http://localhost:7777", "http://localhost:5173"], // add alternative origin here origin
@@ -105,8 +106,8 @@ app.patch("/user/:userId", async (req, res) => {
 connectDB()
   .then(() => {
     console.log("Database connected successfully");
-    app.listen(PORT, () => {
-      console.log(`Server listening to ${PORT}....`);
+    app.listen(process.env.PORT, () => {
+      console.log(`Server listening to ${process.env.PORT}....`);
     });
   })
   .catch((err) => {

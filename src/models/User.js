@@ -90,7 +90,7 @@ userSchema.index({ firstName: 1, lastName: 1 }); // compound index to search by 
 // this will also helpful in testing and reusable anywhere
 userSchema.methods.getJWT = async function () {
   const user = this;
-  const token = await jwt.sign({ _id: user._id }, "Dev@Tinder$143", {
+  const token = await jwt.sign({ _id: user._id }, process.env.JWT_SECRET, {
     expiresIn: "1h",
   });
 
