@@ -8,6 +8,11 @@ const requestRouter = require("./routes/request");
 const userRouter = require("./routes/user");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
+const http = require("http");
+const server = http.createServer(app);
+const initSocket = require("./utils/socket");
+
+initSocket(server); // pass the server to the socket function
 
 require("dotenv").config();
 
@@ -106,7 +111,7 @@ app.patch("/user/:userId", async (req, res) => {
 connectDB()
   .then(() => {
     console.log("Database connected successfully");
-    app.listen(process.env.PORT, () => {
+    server.listen(process.env.PORT, () => {
       console.log(`Server listening to ${process.env.PORT}....`);
     });
   })

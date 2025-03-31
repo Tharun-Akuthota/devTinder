@@ -32,7 +32,6 @@ const validateProfileUpdate = (req) => {
   return isUpdateAllowed;
 };
 
-
 // https://mega.nz/folder/KMt2HBBC#qvYeDpq3SpsJa1EcaPYzsA
 
 // https://mega.nz/folder/4z8V1bSC#mLrxxAWpxn-jLwx6TCpS_Q
