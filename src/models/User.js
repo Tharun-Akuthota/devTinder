@@ -84,8 +84,6 @@ const userSchema = new mongoose.Schema(
 
 userSchema.index({ firstName: 1, lastName: 1 }); // compound index to search by first name and last name faster
 
-// DONT CREATE UNNECESSARY INDEXES, IT WILL SLOW DOWN THE WRITE OPERATION
-
 // always use function instead of arrow function because arrow function does not bind "this"
 // this will also helpful in testing and reusable anywhere
 userSchema.methods.getJWT = async function () {

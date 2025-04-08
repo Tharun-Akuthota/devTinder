@@ -11,6 +11,7 @@ const cors = require("cors");
 const http = require("http");
 const server = http.createServer(app);
 const initSocket = require("./utils/socket");
+const chatRouter = require("./routes/chat");
 
 initSocket(server); // pass the server to the socket function
 
@@ -36,6 +37,7 @@ app.use("/", authRouter);
 app.use("/", profileRouter);
 app.use("/", requestRouter);
 app.use("/", userRouter);
+app.use("/", chatRouter);
 
 // Get user data
 app.get("/signup", async (req, res) => {
