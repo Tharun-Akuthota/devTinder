@@ -118,5 +118,3 @@ connectDB()
   .catch((err) => {
     console.log("BOOOM ERROR!!!" + err.message);
   });
-
-// hifemov976@rabitex.com

@@ -32,12 +32,4 @@ const validateProfileUpdate = (req) => {
   return isUpdateAllowed;
 };
 
-// https://mega.nz/folder/KMt2HBBC#qvYeDpq3SpsJa1EcaPYzsA
-
-// https://mega.nz/folder/4z8V1bSC#mLrxxAWpxn-jLwx6TCpS_Q
-
-// https://mega.nz/folder/uMl0FRIQ#wrFlnS0FYn2cgE35_3Y75w
-
-// https://mega.nz/folder/ogg2CTTK#SAqXknE3EfbRpYD74Go6TQ
-
 module.exports = { validationSignup, validateProfileUpdate };

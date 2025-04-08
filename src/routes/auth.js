@@ -6,19 +6,6 @@ const User = require("../models/User");
 
 // sending data to database
 authRouter.post("/signup", async (req, res) => {
-  /*
-  const userObj = {
-      firstName: "Vishnu",
-      lastName: "Akuthota",
-      emailId: "vishnu@gmail.com",
-      password: "tharun@123",
-  };
-
-  console.log(req.body);
-
-  created an instance of User
-  */
-
   try {
     validationSignup(req);
     const { firstName, lastName, emailId, password } = req.body;

@@ -108,8 +108,3 @@ userSchema.methods.validatePassword = async function (passwordInput) {
 const User = mongoose.model("User", userSchema);
 
 module.exports = User;
-
-// https://adlinkfly.in/I7qyzjsT
-// https://adlinkfly.in/joFo8
-
-//https://adlinkfly.in/I5NYbfIP
