@@ -4,7 +4,7 @@ const connectionRequestSchema = new mongoose.Schema(
   {
     fromUserId: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "User", // this is used to reference the User model, act as a foreign key and links the two models
+      ref: "User",
       required: true,
     },
     toUserId: {
@@ -14,24 +14,29 @@ const connectionRequestSchema = new mongoose.Schema(
     },
     status: {
       type: String,
+      required: true,
       enum: {
         values: ["ignored", "interested", "accepted", "rejected"],
-        message: `{VALUE} is incorrect status`,
+        message: `{VALUE} is incorrect status type`,
       },
     },
   },
-  {
-    timestamps: true,
-  }
+  { timestamps: true }
 );
 
-connectionRequestSchema.pre("save", async function (next) {
-  const existingRequest = this;
-  if (existingRequest.fromUserId.equals(existingRequest.toUserId)) {
-    throw new Error("You cannot send request to yourself");
+// ConnectionRequest.find({fromUserId: 273478465864786587, toUserId: 273478465864786587})
+
+connectionRequestSchema.index({ fromUserId: 1, toUserId: 1 });
+
+connectionRequestSchema.pre("save", function (next) {
+  const connectionRequest = this;
+  // Check if the fromUserId is same as toUserId
+  if (connectionRequest.fromUserId.equals(connectionRequest.toUserId)) {
+    throw new Error("Cannot send connection request to yourself!");
   }
   next();
 });
+
 const ConnectionRequestModel = new mongoose.model(
   "ConnectionRequest",
   connectionRequestSchema

@@ -18,9 +18,8 @@ const initSocket = (server) => {
   io.on("connection", (socket) => {
     // Handle the chat event
 
-    socket.on("joinChat", ({ userId, targetUserId }) => {
+    socket.on("joinChat", ({ firstName, userId, targetUserId }) => {
       const roomId = getSecretRoomId(userId, targetUserId);
-      console.log("Joining room: ", roomId);
       socket.join(roomId);
       // this will join the socket to the room with the uniqueId
     });
@@ -35,13 +34,18 @@ const initSocket = (server) => {
 
           // check if userId and targetUserId are friends
 
-          ConnectionRequestModel.findOne({
+          const existingConnection = await ConnectionRequestModel.findOne({
             $or: [
               { fromUserId: userId, toUserId: targetUserId },
               { fromUserId: targetUserId, toUserId: userId },
             ],
             status: "accepted",
           });
+
+          if (!existingConnection){
+            throw new Error(" You must be connected to chat.");
+            
+          }
 
           let chat = await Chat.findOne({
             participants: { $all: [userId, targetUserId] },

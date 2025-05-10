@@ -9,7 +9,7 @@ const validationSignup = (req) => {
   } else if (!validator.isEmail(emailId)) {
     throw new Error("Please enter valid email");
   } else if (!validator.isStrongPassword(password)) {
-    throw new Error("Please enter valid password");
+    throw new Error("Please enter Strong password");
   }
 };
 

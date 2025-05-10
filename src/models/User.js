@@ -29,7 +29,7 @@ const userSchema = new mongoose.Schema(
       trim: true, // remove spacesS
       validate(value) {
         if (!validator.isEmail(value)) {
-          throw new Error("Invalid Email");
+          throw new Error("Invalid Email: " + value);
         }
       },
     },
@@ -54,18 +54,18 @@ const userSchema = new mongoose.Schema(
         message: `{VALUE} is not valid`,
       },
       // here validation is optional, enum already does the validation
-      validate(value) {
-        if (!["male", "female", "others"].includes(value)) {
-          throw new Error("Invalid Gender type");
-        }
-      },
+      // validate(value) {
+      //   if (!["male", "female", "others"].includes(value)) {
+      //     throw new Error("Invalid Gender type");
+      //   }
+      // },
     },
     photoUrl: {
       type: String,
       default: "https://picsum.photos/200/300",
       validate(value) {
         if (!validator.isURL(value)) {
-          throw new Error("Invalid URL" + value);
+          throw new Error("Invalid Photo URL" + value);
         }
       },
     },
@@ -84,7 +84,7 @@ const userSchema = new mongoose.Schema(
 
 userSchema.index({ firstName: 1, lastName: 1 }); // compound index to search by first name and last name faster
 
-// aclways use function instead of arrow function because arrow function does not bind "this"
+// always use function instead of arrow function because arrow function does not bind "this"
 // this will also helpful in testing and reusable anywhere
 userSchema.methods.getJWT = async function () {
   const user = this;

@@ -4,7 +4,7 @@ const { userAuth } = require("../middlewares/auth");
 const ConnectionRequestModel = require("../models/connectionRequest");
 const User = require("../models/User");
 
-const USER_SAFE_DATA = "firstName lastName photoUrl age about skills";
+const USER_SAFE_DATA = "firstName lastName photoUrl age gender about skills";
 
 // get all the connection requests sent by the logged in user
 userRouter.get("/user/requests/received", userAuth, async (req, res) => {
@@ -73,9 +73,9 @@ userRouter.get("/feed", userAuth, async (req, res) => {
 
     const hiddenUsers = new Set(); // set is used to store unique values and return them in an array
 
-    connectionRequests.forEach((row) => {
-      hiddenUsers.add(row.fromUserId.toString());
-      hiddenUsers.add(row.toUserId.toString());
+    connectionRequests.forEach((req) => {
+      hiddenUsers.add(req.fromUserId.toString());
+      hiddenUsers.add(req.toUserId.toString());
     });
 
     const users = await User.find({
