@@ -27,8 +27,6 @@ const initSocket = (server) => {
     socket.on(
       "sendMessage",
       async ({ firstName, lastName, text, userId, targetUserId }) => {
-        // for creating room we can also use crypto library to create a unique id
-        // const roomId = [userId, targetUserId].sort().join("_");
         try {
           const roomId = getSecretRoomId(userId, targetUserId);
 

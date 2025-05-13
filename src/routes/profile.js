@@ -6,7 +6,6 @@ const { validateProfileUpdate } = require("../utils/validation");
 const bcrypt = require("bcrypt");
 
 profileRouter.get("/profile/view", userAuth, async (req, res) => {
-  // validate the token
 
   //token will be replaced after new user login
   try {

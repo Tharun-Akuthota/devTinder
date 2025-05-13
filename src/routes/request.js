@@ -29,16 +29,6 @@ requestRouter.post(
           message: "User does not exist",
         });
       }
-
-      // console.log(fromUserId); // returns object
-      // console.log(fromUserId.toString()); // returns string
-      //if user send request to himself
-      // if (fromUserId.toString() === toUserId.toString()) {
-      //   return res.status(400).json({
-      //     message: "You can't send request to yourself",
-      //   });
-      // }
-
       // if there is existing connection request
       const existingRequest = await ConnectionRequestModel.findOne({
         $or: [

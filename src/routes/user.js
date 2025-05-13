@@ -14,9 +14,6 @@ userRouter.get("/user/requests/received", userAuth, async (req, res) => {
       toUserId: loggedInUser._id,
       status: "interested",
     }).populate("fromUserId", USER_SAFE_DATA);
-    // populate is used to get the details of the user who sent the request
-    // the second argument is used to select the fields that we want to get from the user
-    // this can also be used .populate("fromUserId", ["firstName", "lastName"]);
 
     res.json({
       message: "Connection requests fetched successfully",
@@ -87,8 +84,6 @@ userRouter.get("/feed", userAuth, async (req, res) => {
       .select(USER_SAFE_DATA)
       .skip(skip)
       .limit(limit);
-
-    // skip and limit are used for pageination, here we skip the first (page-1)*limit records and fetch the next limit records
 
     res.json({ data: users });
   } catch (err) {

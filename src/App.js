@@ -1,6 +1,5 @@
 const express = require("express");
 const app = express();
-const User = require("./models/User");
 const { connectDB } = require("./config/database");
 const profileRouter = require("./routes/profile");
 const authRouter = require("./routes/auth");
@@ -18,7 +17,11 @@ initSocket(server); // pass the server to the socket function
 require("dotenv").config();
 
 let corsOptions = {
-  origin: ["http://localhost:7777", "http://localhost:5173", ], // add alternative origin here origin
+  origin: [
+    "http://localhost:7777",
+    "http://localhost:5173",
+    process.env.BASE_URL,
+  ], // add alternative origin here origin
   credentials: true,
   methods: ["GET", "PUT", "POST", "PATCH", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"],

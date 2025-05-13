@@ -12,8 +12,6 @@ const userSchema = new mongoose.Schema(
       index: true /* for faster search and sorting, unique is not required when using index
        here i cannot add unique because it will not allow me to add multiple users with same name
        so we can use index instead of unique */,
-
-      // compound index means index on multiple fields
       minlength: 3,
     },
     lastName: {
@@ -26,7 +24,7 @@ const userSchema = new mongoose.Schema(
       lowercase: true,
       required: true,
       unique: true,
-      trim: true, // remove spacesS
+      trim: true,
       validate(value) {
         if (!validator.isEmail(value)) {
           throw new Error("Invalid Email: " + value);
@@ -53,13 +51,8 @@ const userSchema = new mongoose.Schema(
         values: ["male", "female", "others"],
         message: `{VALUE} is not valid`,
       },
-      // here validation is optional, enum already does the validation
-      // validate(value) {
-      //   if (!["male", "female", "others"].includes(value)) {
-      //     throw new Error("Invalid Gender type");
-      //   }
-      // },
     },
+
     photoUrl: {
       type: String,
       default: "https://picsum.photos/200/300",
@@ -69,10 +62,12 @@ const userSchema = new mongoose.Schema(
         }
       },
     },
+
     about: {
       type: String,
       default: "Hey there! I am using devTinder.",
     },
+
     skills: {
       type: [String],
     },
@@ -82,10 +77,8 @@ const userSchema = new mongoose.Schema(
   }
 );
 
-userSchema.index({ firstName: 1, lastName: 1 }); // compound index to search by first name and last name faster
+userSchema.index({ firstName: 1, lastName: 1 });
 
-// always use function instead of arrow function because arrow function does not bind "this"
-// this will also helpful in testing and reusable anywhere
 userSchema.methods.getJWT = async function () {
   const user = this;
   const token = await jwt.sign({ _id: user._id }, process.env.JWT_SECRET, {
